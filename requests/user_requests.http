@@ -1,0 +1,44 @@
+### GET /api/users
+GET {{appAddress}}/api/users
+Authorization: Bearer {{auth_token}}
+
+
+### GET /api/users
+GET {{appAddress}}/api/users?sortBy=login&sortOrder=DESC
+Authorization: Bearer {{auth_token}}
+
+
+### GET /api/users
+GET {{appAddress}}/api/users?key=z
+Authorization: Bearer {{auth_token}}
+
+
+### GET /api/users/{login}
+GET {{appAddress}}/api/users/newuser
+Authorization: Bearer {{auth_token}}
+
+
+### POST /api/users
+POST {{appAddress}}/api/users
+Content-Type: application/json
+
+{
+  "login": "admin",
+  "password": "password"
+}
+
+
+### PUT /api/users/{login}
+PUT {{appAddress}}/api/users/newuser
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "login": "newuser",
+  "password": "updatedPassword"
+}
+
+
+### DELETE /api/users/{login}
+DELETE {{appAddress}}/api/users/newuser
+Authorization: Bearer {{auth_token}}
