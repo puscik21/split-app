@@ -1,0 +1,55 @@
+### GET /api/split-groups
+GET {{appAddress}}/api/split-groups
+Authorization: Bearer {{auth_token}}
+
+
+### GET /api/split-groups/{groupId}
+GET {{appAddress}}/api/split-groups/1
+Authorization: Bearer {{auth_token}}
+
+
+### POST /api/split-groups
+POST {{appAddress}}/api/split-groups
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "groupId": 1,
+  "title": "Talking about everything",
+  "description": "Let's grab a coffee and talking about anything we want",
+  "date": "2025-09-26"
+}
+
+
+### PUT /api/split-groups/{groupId}
+PUT {{appAddress}}/api/split-groups/2
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "groupId": 2,
+  "title": "Daily",
+  "description": "Daily split-group",
+  "date": "2025-05-20"
+}
+
+
+### DELETE /api/split-groups/{groupId}
+DELETE {{appAddress}}/api/split-groups/1
+Authorization: Bearer {{auth_token}}
+
+
+### GET /api/split-groups/{groupId}/users
+GET {{appAddress}}/api/split-groups/1/users
+Authorization: Bearer {{auth_token}}
+
+
+### POST /api/split-groups/{groupId}/users/{login}
+POST {{appAddress}}/api/split-groups/1/users/admin
+Authorization: Bearer {{auth_token}}
+
+
+### DELETE /api/split-groups/{groupId}/users/{login}
+DELETE {{appAddress}}/api/split-groups/1/users/admin
+Authorization: Bearer {{auth_token}}
+
