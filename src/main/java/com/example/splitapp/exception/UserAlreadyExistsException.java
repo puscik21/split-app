@@ -8,6 +8,6 @@ import org.springframework.http.HttpStatus;
 public class UserAlreadyExistsException extends ApiException {
 
     public UserAlreadyExistsException(String login) {
-        super("Unable to create. A participant with login '%s' already exists.".formatted(login), HttpStatus.CONFLICT, Level.WARN);
+        super("Unable to create. A user with login '%s' already exists.".formatted(login), HttpStatus.CONFLICT, Level.WARN);
     }
 }
