@@ -9,12 +9,12 @@ Authorization: Bearer {{auth_token}}
 
 
 ### GET /api/users
-GET {{appAddress}}/api/users?key=z
+GET {{appAddress}}/api/users?key=a
 Authorization: Bearer {{auth_token}}
 
 
 ### GET /api/users/{login}
-GET {{appAddress}}/api/users/newuser
+GET {{appAddress}}/api/users/admin
 Authorization: Bearer {{auth_token}}
 
 
@@ -29,5 +29,5 @@ Content-Type: application/json
 
 
 ### DELETE /api/users/{login}
-DELETE {{appAddress}}/api/users/newuser
+DELETE {{appAddress}}/api/users/admin
 Authorization: Bearer {{auth_token}}

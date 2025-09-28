@@ -44,7 +44,7 @@ public class SplitGroupService {
                     cb.like(root.get("description"), "%" + description + "%"));
         }
         if (!userLogin.isEmpty()) {
-            User user = userService.getByLogin(userLogin);
+            User user = userService.getUserByLogin(userLogin);
             spec = spec.and((root, query, cb) ->
                     cb.isMember(user, root.get("user")));
         }
@@ -75,7 +75,7 @@ public class SplitGroupService {
             throw new UserAlreadyInSplitGroupException(id, login);
         }
         SplitGroup splitGroup = getGroupById(id);
-        User user = userService.getByLogin(login);
+        User user = userService.getUserByLogin(login);
         splitGroup.addUser(user);
     }
 
@@ -85,7 +85,7 @@ public class SplitGroupService {
             throw new UserNotFoundInSplitGroupException(id, login);
         }
         SplitGroup splitGroup = getGroupById(id);
-        User user = userService.getByLogin(login);
+        User user = userService.getUserByLogin(login);
         splitGroup.removeUser(user);
     }
 

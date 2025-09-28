@@ -25,4 +25,12 @@ public class User {
 
     @ManyToMany(mappedBy = "users")
     Set<SplitGroup> splitGroups = new HashSet<>();
+
+    public User() {
+    }
+
+    public User(String login, String password) {
+        this.login = login;
+        this.password = password;
+    }
 }
