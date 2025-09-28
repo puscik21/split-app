@@ -1,17 +1,18 @@
 package com.example.splitapp.controller;
 
 import com.example.splitapp.controller.utils.ControllerUtils;
-import com.example.splitapp.model.SplitGroup;
-import com.example.splitapp.model.User;
+import com.example.splitapp.dto.splitgroup.CreateSplitGroupRequest;
+import com.example.splitapp.dto.splitgroup.SplitGroupDTO;
+import com.example.splitapp.dto.splitgroup.UpdateSplitGroupRequest;
 import com.example.splitapp.service.SplitGroupService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,16 +30,16 @@ public class SplitGroupController {
     private final SplitGroupService splitGroupService;
 
     @GetMapping
-    public List<SplitGroup> findSplitGroups(@RequestParam(value = "title", defaultValue = "") String title,
-                                            @RequestParam(value = "description", defaultValue = "") String description,
-                                            @RequestParam(value = "sortBy", defaultValue = "title") String sortBy,
-                                            @RequestParam(value = "userLogin", defaultValue = "") String userLogin,
-                                            @RequestParam(defaultValue = "ASC") String sortOrder) {
+    public List<SplitGroupDTO> findSplitGroups(@RequestParam(value = "title", defaultValue = "") String title,
+                                               @RequestParam(value = "description", defaultValue = "") String description,
+                                               @RequestParam(value = "sortBy", defaultValue = "title") String sortBy,
+                                               @RequestParam(value = "userLogin", defaultValue = "") String userLogin,
+                                               @RequestParam(defaultValue = "ASC") String sortOrder) {
         return splitGroupService.findSplitGroups(title, description, userLogin, sortBy, Sort.Direction.valueOf(sortOrder));
     }
 
     @GetMapping("/{groupId}")
-    public SplitGroup getSplitGroupById(@PathVariable Long groupId) {
+    public SplitGroupDTO getSplitGroupById(@PathVariable Long groupId) {
         return splitGroupService.getById(groupId);
     }
 
@@ -49,20 +50,20 @@ public class SplitGroupController {
     }
 
     @PostMapping
-    public ResponseEntity<SplitGroup> createSplitGroup(@RequestBody SplitGroup splitGroup) {
-        SplitGroup created = splitGroupService.add(splitGroup);
-        URI location = ControllerUtils.getLocation("/{groupId}", created.getId());
+    public ResponseEntity<SplitGroupDTO> createSplitGroup(@RequestBody CreateSplitGroupRequest splitGroupRequest) {
+        SplitGroupDTO created = splitGroupService.add(splitGroupRequest);
+        URI location = ControllerUtils.getLocation("/{groupId}", created.id());
         return ResponseEntity.created(location).body(created);
     }
 
-    @PutMapping("/{groupId}")
-    public SplitGroup updateSplitGroup(@PathVariable Long groupId, @RequestBody SplitGroup splitGroup) {
-        return splitGroupService.update(groupId, splitGroup);
+    @PatchMapping("/{groupId}")
+    public SplitGroupDTO updateSplitGroup(@PathVariable Long groupId, @RequestBody UpdateSplitGroupRequest updateRequest) {
+        return splitGroupService.update(groupId, updateRequest);
     }
 
     @GetMapping("/{groupId}/users")
-    public Set<User> getSplitGroupsUsers(@PathVariable Long groupId) {
-        return splitGroupService.getById(groupId).getUsers();
+    public Set<String> getSplitGroupsUsers(@PathVariable Long groupId) {
+        return splitGroupService.getById(groupId).userLogins();
     }
 
     @PostMapping("/{groupId}/users/{login}")

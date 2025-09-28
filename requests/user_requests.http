@@ -9,12 +9,12 @@ Authorization: Bearer {{auth_token}}
 
 
 ### GET /api/users
-GET {{appAddress}}/api/users?key=z
+GET {{appAddress}}/api/users?key=a
 Authorization: Bearer {{auth_token}}
 
 
 ### GET /api/users/{login}
-GET {{appAddress}}/api/users/newuser
+GET {{appAddress}}/api/users/admin
 Authorization: Bearer {{auth_token}}
 
 
@@ -28,17 +28,6 @@ Content-Type: application/json
 }
 
 
-### PUT /api/users/{login}
-PUT {{appAddress}}/api/users/newuser
-Content-Type: application/json
-Authorization: Bearer {{auth_token}}
-
-{
-  "login": "newuser",
-  "password": "updatedPassword"
-}
-
-
 ### DELETE /api/users/{login}
-DELETE {{appAddress}}/api/users/newuser
+DELETE {{appAddress}}/api/users/admin
 Authorization: Bearer {{auth_token}}

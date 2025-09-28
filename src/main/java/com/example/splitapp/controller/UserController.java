@@ -1,7 +1,8 @@
 package com.example.splitapp.controller;
 
 import com.example.splitapp.controller.utils.ControllerUtils;
-import com.example.splitapp.model.User;
+import com.example.splitapp.dto.UserDTO;
+import com.example.splitapp.dto.user.UserRegistrationRequest;
 import com.example.splitapp.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,9 +30,9 @@ public class UserController {
     private static final Set<String> ALLOWED_SORT_BY_FIELDS = Set.of("login");
 
     @GetMapping
-    public List<User> findUsers(@RequestParam(required = false) String key,
-                                @RequestParam(defaultValue = "login") String sortBy,
-                                @RequestParam(defaultValue = "ASC") String sortOrder) {
+    public List<UserDTO> findUsers(@RequestParam(required = false) String key,
+                                   @RequestParam(defaultValue = "login") String sortBy,
+                                   @RequestParam(defaultValue = "ASC") String sortOrder) {
         if (!ALLOWED_SORT_BY_FIELDS.contains(sortBy)) {
             throw new IllegalArgumentException("Invalid sortBy " + sortBy);
         }
@@ -40,20 +40,15 @@ public class UserController {
     }
 
     @GetMapping("/{login}")
-    public User getUser(@PathVariable String login) {
-        return userService.getByLogin(login);
+    public UserDTO getUser(@PathVariable String login) {
+        return userService.getUserDTOByLogin(login);
     }
 
     @PostMapping
-    public ResponseEntity<User> registerUser(@RequestBody User user) {
-        User registeredUser = userService.register(user);
-        URI location = ControllerUtils.getLocation("/{login}", registeredUser.getLogin());
+    public ResponseEntity<UserDTO> registerUser(@RequestBody UserRegistrationRequest registrationRequest) {
+        UserDTO registeredUser = userService.register(registrationRequest);
+        URI location = ControllerUtils.getLocation("/{login}", registeredUser.login());
         return ResponseEntity.created(location).body(registeredUser);
-    }
-
-    @PutMapping("/{login}")
-    public User updateUser(@PathVariable String login, @RequestBody User user) {
-        return userService.update(login, user);
     }
 
     @DeleteMapping("/{login}")
