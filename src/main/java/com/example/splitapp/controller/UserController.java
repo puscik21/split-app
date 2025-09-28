@@ -51,11 +51,6 @@ public class UserController {
         return ResponseEntity.created(location).body(registeredUser);
     }
 
-    @PutMapping("/{login}")
-    public User updateUser(@PathVariable String login, @RequestBody User user) {
-        return userService.update(login, user);
-    }
-
     @DeleteMapping("/{login}")
     public ResponseEntity<Void> deleteUser(@PathVariable String login) {
         userService.removeByLogin(login);

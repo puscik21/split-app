@@ -44,14 +44,6 @@ public class UserService {
     }
 
     @Transactional
-    public User update(String login, User user) {
-        User existingUser = getByLogin(login);
-        user.setLogin(existingUser.getLogin());
-//        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
-    }
-
-    @Transactional
     public void removeByLogin(String login) {
         User user = getByLogin(login);
         userRepository.delete(user);
