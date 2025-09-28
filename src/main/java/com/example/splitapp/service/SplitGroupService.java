@@ -1,8 +1,8 @@
 package com.example.splitapp.service;
 
+import com.example.splitapp.dto.CreateSplitGroupRequest;
 import com.example.splitapp.exception.ObjectNotFoundException;
 import com.example.splitapp.exception.RemovalOfSplitGroupWithUserException;
-import com.example.splitapp.exception.SplitGroupAlreadyExistsException;
 import com.example.splitapp.exception.UserAlreadyInSplitGroupException;
 import com.example.splitapp.exception.UserNotFoundInSplitGroupException;
 import com.example.splitapp.model.SplitGroup;
@@ -50,12 +50,8 @@ public class SplitGroupService {
     }
 
     @Transactional
-    public SplitGroup add(SplitGroup splitGroup) {
-        splitGroupRepository.findByTitleAndDate(splitGroup.getTitle(), splitGroup.getDate())
-                .ifPresent(m -> {
-                    throw new SplitGroupAlreadyExistsException(m.getTitle());
-                });
-        splitGroup.setId(null);
+    public SplitGroup add(CreateSplitGroupRequest splitGroupRequest) {
+        SplitGroup splitGroup = new SplitGroup(splitGroupRequest.title(), splitGroupRequest.description());
         return splitGroupRepository.save(splitGroup);
     }
 

@@ -14,15 +14,13 @@ Content-Type: application/json
 Authorization: Bearer {{auth_token}}
 
 {
-  "groupId": 1,
   "title": "Talking about everything",
-  "description": "Let's grab a coffee and talking about anything we want",
-  "date": "2025-09-26"
+  "description": "Let's grab a coffee and talking about anything we want"
 }
 
 
 ### PUT /api/split-groups/{groupId}
-PUT {{appAddress}}/api/split-groups/2
+PUT {{appAddress}}/api/split-groups/1
 Content-Type: application/json
 Authorization: Bearer {{auth_token}}
 
