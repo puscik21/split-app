@@ -1,7 +1,8 @@
 package com.example.splitapp.service;
 
-import com.example.splitapp.dto.CreateSplitGroupRequest;
-import com.example.splitapp.dto.SplitGroupDTO;
+import com.example.splitapp.dto.splitgroup.CreateSplitGroupRequest;
+import com.example.splitapp.dto.splitgroup.SplitGroupDTO;
+import com.example.splitapp.dto.splitgroup.UpdateSplitGroupRequest;
 import com.example.splitapp.exception.ObjectNotFoundException;
 import com.example.splitapp.exception.RemovalOfSplitGroupWithUserException;
 import com.example.splitapp.exception.UserAlreadyInSplitGroupException;
@@ -88,13 +89,16 @@ public class SplitGroupService {
         splitGroup.removeUser(user);
     }
 
-
     @Transactional
-    // TODO: use DTO
-    public SplitGroupDTO update(Long id, SplitGroup splitGroup) {
+    public SplitGroupDTO update(Long id, UpdateSplitGroupRequest updateRequest) {
         SplitGroup existingSplitGroup = getGroupById(id);
-        splitGroup.setId(existingSplitGroup.getId());
-        return splitGroupMapper.toDto(splitGroupRepository.save(splitGroup));
+        if (updateRequest.title() != null) {
+            existingSplitGroup.setTitle(updateRequest.title());
+        }
+        if (updateRequest.description() != null) {
+            existingSplitGroup.setDescription(updateRequest.description());
+        }
+        return splitGroupMapper.toDto(splitGroupRepository.save(existingSplitGroup));
     }
 
     private SplitGroup getGroupById(Long id) {

@@ -61,6 +61,9 @@ public class SplitGroup {
 
     private LocalDateTime creationTimestamp;
 
+    public SplitGroup() {
+    }
+
     public SplitGroup(String title, String description) {
         this.title = title;
         this.description = description;

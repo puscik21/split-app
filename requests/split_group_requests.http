@@ -18,17 +18,14 @@ Authorization: Bearer {{auth_token}}
   "description": "Let's grab a coffee and talking about anything we want"
 }
 
-
-### PUT /api/split-groups/{groupId}
-PUT {{appAddress}}/api/split-groups/1
+### PATCH /api/split-groups/{groupId}
+PATCH {{appAddress}}/api/split-groups/1
 Content-Type: application/json
 Authorization: Bearer {{auth_token}}
 
 {
-  "groupId": 2,
   "title": "Daily",
   "description": "Daily split-group",
-  "date": "2025-05-20"
 }
 
 

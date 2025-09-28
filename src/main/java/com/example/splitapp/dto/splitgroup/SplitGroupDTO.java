@@ -1,4 +1,4 @@
-package com.example.splitapp.dto;
+package com.example.splitapp.dto.splitgroup;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
