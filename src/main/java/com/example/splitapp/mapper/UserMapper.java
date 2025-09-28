@@ -17,7 +17,7 @@ public interface UserMapper {
     @Mapping(source = "splitGroups", target = "splitGroupIds", qualifiedByName = "splitGroupsToIds")
     UserDTO toDto(User user);
 
-    @Named("splitGroupsToIds") // TODO: do I need this name?
+    @Named("splitGroupsToIds")
     default Set<Long> splitGroupsToIds(Set<SplitGroup> splitGroups) {
         if (splitGroups == null || splitGroups.isEmpty()) {
             return Collections.emptySet();
