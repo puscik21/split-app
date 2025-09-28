@@ -71,21 +71,21 @@ public class SplitGroupService {
 
     @Transactional
     public void addUser(Long id, String login) {
-        SplitGroup splitGroup = getGroupById(id);
-        User user = userService.getByLogin(login);
-        if (splitGroup.getUsers().contains(user)) {
+        if (splitGroupRepository.existsByIdAndUsers_Login(id, login)) {
             throw new UserAlreadyInSplitGroupException(id, login);
         }
+        SplitGroup splitGroup = getGroupById(id);
+        User user = userService.getByLogin(login);
         splitGroup.addUser(user);
     }
 
     @Transactional
     public void deleteUser(Long id, String login) {
-        SplitGroup splitGroup = getGroupById(id);
-        User user = userService.getByLogin(login);
-        if (!splitGroup.getUsers().contains(user)) {
+        if (!splitGroupRepository.existsByIdAndUsers_Login(id, login)) {
             throw new UserNotFoundInSplitGroupException(id, login);
         }
+        SplitGroup splitGroup = getGroupById(id);
+        User user = userService.getByLogin(login);
         splitGroup.removeUser(user);
     }
 
