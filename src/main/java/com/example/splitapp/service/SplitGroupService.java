@@ -1,10 +1,12 @@
 package com.example.splitapp.service;
 
 import com.example.splitapp.dto.CreateSplitGroupRequest;
+import com.example.splitapp.dto.SplitGroupDTO;
 import com.example.splitapp.exception.ObjectNotFoundException;
 import com.example.splitapp.exception.RemovalOfSplitGroupWithUserException;
 import com.example.splitapp.exception.UserAlreadyInSplitGroupException;
 import com.example.splitapp.exception.UserNotFoundInSplitGroupException;
+import com.example.splitapp.mapper.SplitGroupMapper;
 import com.example.splitapp.model.SplitGroup;
 import com.example.splitapp.model.User;
 import com.example.splitapp.repository.SplitGroupRepository;
@@ -22,15 +24,15 @@ public class SplitGroupService {
 
     private final UserService userService;
     private final SplitGroupRepository splitGroupRepository;
+    private final SplitGroupMapper splitGroupMapper;
 
     @Transactional(readOnly = true)
-    public SplitGroup getById(Long id) {
-        return splitGroupRepository.findById(id)
-                .orElseThrow(() -> new ObjectNotFoundException("SplitGroup with id '%d' not found".formatted(id)));
+    public SplitGroupDTO getById(Long id) {
+        return splitGroupMapper.toDto(getGroupById(id));
     }
 
-    public List<SplitGroup> findSplitGroups(String title, String description, String userLogin, String sortBy, Sort.Direction sortOrder) {
-        Specification<SplitGroup> spec = Specification.where(null); // TODO: fix depracated
+    public List<SplitGroupDTO> findSplitGroups(String title, String description, String userLogin, String sortBy, Sort.Direction sortOrder) {
+        Specification<SplitGroup> spec = (root, query, cb) -> cb.conjunction();
 
         if (!title.isEmpty()) {
             spec = spec.and((root, query, cb) ->
@@ -46,18 +48,20 @@ public class SplitGroupService {
                     cb.isMember(user, root.get("user")));
         }
         Sort sort = Sort.by(sortOrder, sortBy);
-        return splitGroupRepository.findAll(spec, sort);
+        return splitGroupRepository.findAll(spec, sort).stream()
+                .map(splitGroupMapper::toDto)
+                .toList();
     }
 
     @Transactional
-    public SplitGroup add(CreateSplitGroupRequest splitGroupRequest) {
+    public SplitGroupDTO add(CreateSplitGroupRequest splitGroupRequest) {
         SplitGroup splitGroup = new SplitGroup(splitGroupRequest.title(), splitGroupRequest.description());
-        return splitGroupRepository.save(splitGroup);
+        return splitGroupMapper.toDto(splitGroupRepository.save(splitGroup));
     }
 
     @Transactional
     public void deleteById(Long id) {
-        SplitGroup splitGroup = getById(id);
+        SplitGroup splitGroup = getGroupById(id);
         if (!splitGroup.getUsers().isEmpty()) {
             throw new RemovalOfSplitGroupWithUserException(splitGroup.getTitle());
         }
@@ -66,7 +70,7 @@ public class SplitGroupService {
 
     @Transactional
     public void addUser(Long id, String login) {
-        SplitGroup splitGroup = getById(id);
+        SplitGroup splitGroup = getGroupById(id);
         User user = userService.getByLogin(login);
         if (splitGroup.getUsers().contains(user)) {
             throw new UserAlreadyInSplitGroupException(id, login);
@@ -76,7 +80,7 @@ public class SplitGroupService {
 
     @Transactional
     public void deleteUser(Long id, String login) {
-        SplitGroup splitGroup = getById(id);
+        SplitGroup splitGroup = getGroupById(id);
         User user = userService.getByLogin(login);
         if (!splitGroup.getUsers().contains(user)) {
             throw new UserNotFoundInSplitGroupException(id, login);
@@ -86,9 +90,15 @@ public class SplitGroupService {
 
 
     @Transactional
-    public SplitGroup update(Long id, SplitGroup splitGroup) {
-        SplitGroup existingSplitGroup = getById(id);
+    // TODO: use DTO
+    public SplitGroupDTO update(Long id, SplitGroup splitGroup) {
+        SplitGroup existingSplitGroup = getGroupById(id);
         splitGroup.setId(existingSplitGroup.getId());
-        return splitGroupRepository.save(splitGroup);
+        return splitGroupMapper.toDto(splitGroupRepository.save(splitGroup));
+    }
+
+    private SplitGroup getGroupById(Long id) {
+        return splitGroupRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("SplitGroup with id '%d' not found".formatted(id)));
     }
 }

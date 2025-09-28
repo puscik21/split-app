@@ -3,9 +3,7 @@ package com.example.splitapp.controller;
 import com.example.splitapp.controller.utils.ControllerUtils;
 import com.example.splitapp.dto.CreateSplitGroupRequest;
 import com.example.splitapp.dto.SplitGroupDTO;
-import com.example.splitapp.mapper.SplitGroupMapper;
 import com.example.splitapp.model.SplitGroup;
-import com.example.splitapp.model.User;
 import com.example.splitapp.service.SplitGroupService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
@@ -30,7 +28,6 @@ import java.util.Set;
 public class SplitGroupController {
 
     private final SplitGroupService splitGroupService;
-    private final SplitGroupMapper splitGroupMapper;
 
     @GetMapping
     public List<SplitGroupDTO> findSplitGroups(@RequestParam(value = "title", defaultValue = "") String title,
@@ -38,14 +35,12 @@ public class SplitGroupController {
                                                @RequestParam(value = "sortBy", defaultValue = "title") String sortBy,
                                                @RequestParam(value = "userLogin", defaultValue = "") String userLogin,
                                                @RequestParam(defaultValue = "ASC") String sortOrder) {
-        return splitGroupService.findSplitGroups(title, description, userLogin, sortBy, Sort.Direction.valueOf(sortOrder)).stream()
-                .map(splitGroupMapper::toDto)
-                .toList();
+        return splitGroupService.findSplitGroups(title, description, userLogin, sortBy, Sort.Direction.valueOf(sortOrder));
     }
 
     @GetMapping("/{groupId}")
     public SplitGroupDTO getSplitGroupById(@PathVariable Long groupId) {
-        return splitGroupMapper.toDto(splitGroupService.getById(groupId));
+        return splitGroupService.getById(groupId);
     }
 
     @DeleteMapping("/{groupId}")
@@ -56,19 +51,20 @@ public class SplitGroupController {
 
     @PostMapping
     public ResponseEntity<SplitGroupDTO> createSplitGroup(@RequestBody CreateSplitGroupRequest splitGroupRequest) {
-        SplitGroup created = splitGroupService.add(splitGroupRequest);
-        URI location = ControllerUtils.getLocation("/{groupId}", created.getId());
-        return ResponseEntity.created(location).body(splitGroupMapper.toDto(created));
+        SplitGroupDTO created = splitGroupService.add(splitGroupRequest);
+        URI location = ControllerUtils.getLocation("/{groupId}", created.id());
+        return ResponseEntity.created(location).body(created);
     }
 
     @PutMapping("/{groupId}")
+    // TODO: use update DTO, probably as PATCH
     public SplitGroupDTO updateSplitGroup(@PathVariable Long groupId, @RequestBody SplitGroup splitGroup) {
-        return splitGroupMapper.toDto(splitGroupService.update(groupId, splitGroup));
+        return splitGroupService.update(groupId, splitGroup);
     }
 
     @GetMapping("/{groupId}/users")
-    public Set<User> getSplitGroupsUsers(@PathVariable Long groupId) {
-        return splitGroupService.getById(groupId).getUsers();
+    public Set<String> getSplitGroupsUsers(@PathVariable Long groupId) {
+        return splitGroupService.getById(groupId).userLogins();
     }
 
     @PostMapping("/{groupId}/users/{login}")
