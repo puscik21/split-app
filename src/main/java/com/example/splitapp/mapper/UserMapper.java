@@ -1,6 +1,6 @@
 package com.example.splitapp.mapper;
 
-import com.example.splitapp.dto.UserDTO;
+import com.example.splitapp.dto.user.UserDTO;
 import com.example.splitapp.model.SplitGroup;
 import com.example.splitapp.model.User;
 import org.mapstruct.Mapper;

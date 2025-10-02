@@ -70,7 +70,7 @@ public class SplitGroupService {
     }
 
     @Transactional
-    public void addUser(Long id, String login) {
+    public void addUserToGroup(Long id, String login) {
         if (splitGroupRepository.existsByIdAndUsers_Login(id, login)) {
             throw new UserAlreadyInSplitGroupException(id, login);
         }
@@ -80,7 +80,7 @@ public class SplitGroupService {
     }
 
     @Transactional
-    public void deleteUser(Long id, String login) {
+    public void deleteUserFromGroup(Long id, String login) {
         if (!splitGroupRepository.existsByIdAndUsers_Login(id, login)) {
             throw new UserNotFoundInSplitGroupException(id, login);
         }

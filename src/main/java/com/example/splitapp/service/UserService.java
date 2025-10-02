@@ -1,6 +1,6 @@
 package com.example.splitapp.service;
 
-import com.example.splitapp.dto.UserDTO;
+import com.example.splitapp.dto.user.UserDTO;
 import com.example.splitapp.dto.user.UserRegistrationRequest;
 import com.example.splitapp.exception.ObjectNotFoundException;
 import com.example.splitapp.exception.UserAlreadyExistsException;
