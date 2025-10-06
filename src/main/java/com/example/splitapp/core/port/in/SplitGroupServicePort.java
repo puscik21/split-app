@@ -12,6 +12,8 @@ public interface SplitGroupServicePort {
 
     List<SplitGroup> findSplitGroups(String title, String description, String userLogin, String sortBy, String sortOrder);
 
+    List<SplitGroup> findByUserLogin(String login);
+
     SplitGroup add(CreateSplitGroupCommand createCommand);
 
     SplitGroup update(Long id, UpdateSplitGroupCommand updateRequest);

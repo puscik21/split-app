@@ -34,6 +34,13 @@ public class SplitGroupPersistenceAdapter implements SplitGroupRepositoryPort {
     }
 
     @Override
+    public List<SplitGroup> findByUserLogin(String login) {
+        return jpaRepository.findAllByUsers_Login(login).stream()
+                .map(persistenceMapper::toDomain)
+                .toList();
+    }
+
+    @Override
     public SplitGroup save(SplitGroup splitGroup) {
         SplitGroupEntity entity = persistenceMapper.toEntity(splitGroup);
         SplitGroupEntity savedEntity = jpaRepository.save(entity);

@@ -4,7 +4,9 @@ import com.example.splitapp.adapter.in.web.dto.UserDTO;
 import com.example.splitapp.adapter.in.web.dto.UserRegistrationRequest;
 import com.example.splitapp.adapter.in.web.mapper.UserDTOMapper;
 import com.example.splitapp.adapter.in.web.utils.ControllerUtils;
+import com.example.splitapp.core.domain.SplitGroup;
 import com.example.splitapp.core.domain.User;
+import com.example.splitapp.core.port.in.SplitGroupServicePort;
 import com.example.splitapp.core.port.in.UserServicePort;
 import com.example.splitapp.core.port.in.command.RegisterUserCommand;
 import io.swagger.v3.oas.annotations.Operation;
@@ -36,6 +38,7 @@ import java.util.Set;
 public class UserController {
 
     private final UserServicePort userService;
+    private final SplitGroupServicePort splitGroupService;
     private final UserDTOMapper dtoMapper;
 
     private static final Set<String> ALLOWED_SORT_BY_FIELDS = Set.of("login");
@@ -63,7 +66,9 @@ public class UserController {
     @GetMapping("/{login}")
     public UserDTO getUser(
             @Parameter(description = "Login of the user to retrieve", required = true, example = "jane.doe") @PathVariable String login) {
-        return dtoMapper.toDto(userService.getByLogin(login));
+        User user = userService.getByLogin(login);
+        List<SplitGroup> userGroups = splitGroupService.findByUserLogin(login);
+        return dtoMapper.toDto(user, userGroups);
     }
 
     @Operation(summary = "Register a new user")

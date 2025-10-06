@@ -5,20 +5,24 @@ import com.example.splitapp.core.domain.SplitGroup;
 import com.example.splitapp.core.domain.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Named;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Mapper
 public interface UserDTOMapper {
 
-    @Mapping(source = "splitGroups", target = "splitGroupIds", qualifiedByName = "splitGroupsToIds")
+    // TODO: simple method, remove after fixing group Ids in findAll()
+    @Mapping(target = "splitGroupIds", ignore = true)
     UserDTO toDto(User user);
 
-    @Named("splitGroupsToIds")
-    default Set<Long> splitGroupsToIds(Set<SplitGroup> splitGroups) {
+    @Mapping(target = "login", source = "user.login")
+    @Mapping(source = "splitGroups", target = "splitGroupIds")
+    UserDTO toDto(User user, List<SplitGroup> splitGroups);
+
+    default Set<Long> mapGroupsToIds(List<SplitGroup> splitGroups) {
         if (splitGroups == null || splitGroups.isEmpty()) {
             return Collections.emptySet();
         }

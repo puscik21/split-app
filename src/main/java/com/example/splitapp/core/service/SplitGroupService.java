@@ -52,6 +52,11 @@ public class SplitGroupService implements SplitGroupServicePort {
     }
 
     @Override
+    public List<SplitGroup> findByUserLogin(String login) {
+        return splitGroupRepository.findByUserLogin(login);
+    }
+
+    @Override
     @Transactional
     public SplitGroup add(CreateSplitGroupCommand createCommand) {
         SplitGroup splitGroup = new SplitGroup(createCommand.title(), createCommand.description());

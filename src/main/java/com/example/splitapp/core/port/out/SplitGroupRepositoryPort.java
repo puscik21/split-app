@@ -12,6 +12,8 @@ public interface SplitGroupRepositoryPort {
 
     List<SplitGroup> findAll(Specification<SplitGroup> spec, String sortBy, String sortOrder);
 
+    List<SplitGroup> findByUserLogin(String login);
+
     SplitGroup save(SplitGroup splitGroup);
 
     void deleteById(Long id);
