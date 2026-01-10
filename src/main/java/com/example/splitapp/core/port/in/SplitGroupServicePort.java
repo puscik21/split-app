@@ -10,7 +10,7 @@ public interface SplitGroupServicePort {
 
     SplitGroup getById(Long id);
 
-    List<SplitGroup> findSplitGroups(String title, String description, String userLogin, String sortBy, String sortOrder);
+    List<SplitGroup> findSplitGroups(String sortBy, String sortOrder);
 
     List<SplitGroup> findByUserLogin(String login);
 

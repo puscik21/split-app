@@ -33,22 +33,8 @@ public class SplitGroupService implements SplitGroupServicePort {
 
     @Override
     @Transactional
-    public List<SplitGroup> findSplitGroups(String title, String description, String userLogin, String sortBy, String sortOrder) {
-        Specification<SplitGroup> spec = (root, query, cb) -> cb.conjunction();
-        if (!title.isEmpty()) {
-            spec = spec.and((root, query, cb) ->
-                    cb.like(root.get("title"), "%" + title + "%"));
-        }
-        if (!description.isEmpty()) {
-            spec = spec.and((root, query, cb) ->
-                    cb.like(root.get("description"), "%" + description + "%"));
-        }
-        if (!userLogin.isEmpty()) {
-            User user = getUserByLogin(userLogin);
-            spec = spec.and((root, query, cb) ->
-                    cb.isMember(user, root.get("user")));
-        }
-        return splitGroupRepository.findAll(spec, sortBy, sortOrder);
+    public List<SplitGroup> findSplitGroups(String sortBy, String sortOrder) {
+        return splitGroupRepository.findAll(sortBy, sortOrder);
     }
 
     @Override
@@ -65,13 +51,13 @@ public class SplitGroupService implements SplitGroupServicePort {
 
     @Override
     @Transactional
-    public SplitGroup update(Long id, UpdateSplitGroupCommand updateRequest) {
+    public SplitGroup update(Long id, UpdateSplitGroupCommand updateCommand) {
         SplitGroup existingSplitGroup = getGroupById(id);
-        if (updateRequest.title() != null) {
-            existingSplitGroup.setTitle(updateRequest.title());
+        if (updateCommand.title() != null) {
+            existingSplitGroup.setTitle(updateCommand.title());
         }
-        if (updateRequest.description() != null) {
-            existingSplitGroup.setDescription(updateRequest.description());
+        if (updateCommand.description() != null) {
+            existingSplitGroup.setDescription(updateCommand.description());
         }
         return splitGroupRepository.save(existingSplitGroup);
     }

@@ -18,7 +18,7 @@ public interface UserDTOMapper {
     @Mapping(target = "splitGroupIds", ignore = true)
     UserDTO toDto(User user);
 
-    @Mapping(target = "login", source = "user.login")
+    @Mapping(source = "user.login", target = "login")
     @Mapping(source = "splitGroups", target = "splitGroupIds")
     UserDTO toDto(User user, List<SplitGroup> splitGroups);
 

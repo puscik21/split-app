@@ -17,7 +17,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,16 +45,12 @@ public class SplitGroupController {
     @ApiResponse(responseCode = "200", description = "Successfully retrieved the list of groups")
     @GetMapping
     public List<SplitGroupDTO> findSplitGroups(
-            @Parameter(description = "Group title fragment to search for", example = "vacation") @RequestParam(value = "title", defaultValue = "") String title,
-            @Parameter(description = "Group description fragment to search for", example = "Croatia") @RequestParam(value = "description", defaultValue = "") String description,
             @Parameter(description = "Field to sort by", example = "title") @RequestParam(value = "sortBy", defaultValue = "title") String sortBy,
-            @Parameter(description = "Login of a user belonging to the group", example = "user123") @RequestParam(value = "userLogin", defaultValue = "") String userLogin,
             @Parameter(description = "Sort direction (ASC or DESC)", example = "DESC") @RequestParam(defaultValue = "ASC") String sortOrder) {
-        return splitGroupService.findSplitGroups(title, description, userLogin, sortBy, sortOrder).stream()
+        return splitGroupService.findSplitGroups(sortBy, sortOrder).stream()
                 .map(dtoMapper::toDto)
                 .toList();
     }
-
 
     @Operation(summary = "Get a single group by its ID")
     @ApiResponses(value = {

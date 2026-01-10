@@ -7,7 +7,6 @@ import com.example.splitapp.core.domain.SplitGroup;
 import com.example.splitapp.core.port.out.SplitGroupRepositoryPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -26,7 +25,7 @@ public class SplitGroupPersistenceAdapter implements SplitGroupRepositoryPort {
     }
 
     @Override
-    public List<SplitGroup> findAll(Specification<SplitGroup> spec, String sortBy, String sortOrder) {
+    public List<SplitGroup> findAll(String sortBy, String sortOrder) {
         Sort sort = Sort.by(Sort.Direction.valueOf(sortOrder), sortBy);
         return jpaRepository.findAll(sort).stream()
                 .map(persistenceMapper::toDomain)
