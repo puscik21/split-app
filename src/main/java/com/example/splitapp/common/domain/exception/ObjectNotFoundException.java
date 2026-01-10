@@ -1,11 +1,8 @@
 package com.example.splitapp.common.domain.exception;
 
-import org.slf4j.event.Level;
-import org.springframework.http.HttpStatus;
-
-public class ObjectNotFoundException extends ApiException {
+public class ObjectNotFoundException extends DomainException {
 
     public ObjectNotFoundException(String message) {
-        super(message, HttpStatus.NOT_FOUND, Level.INFO);
+        super(message, ExceptionStatus.NOT_FOUND, ExceptionLevel.INFO);
     }
 }
