@@ -23,7 +23,7 @@ public interface SplitGroupDTOMapper {
             return Collections.emptySet();
         }
         return users.stream()
-                .map(User::getLogin)
+                .map(User::login)
                 .collect(Collectors.toSet());
     }
 }
