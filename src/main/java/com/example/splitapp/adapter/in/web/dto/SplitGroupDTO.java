@@ -17,10 +17,6 @@ public record SplitGroupDTO(
         @Schema(description = "Description of the group", example = "Weekly grocery shopping")
         String description,
 
-        // TODO: to be removed?
-        @Schema(description = "Date associated with the group (e.g., trip date)", example = "2025-09-29")
-        LocalDate date,
-
         @Schema(description = "Timestamp of when the group was created", example = "2025-09-29T21:27:40.700235")
         LocalDateTime creationTimestamp,
 
