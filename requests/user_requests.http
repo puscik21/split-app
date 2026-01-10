@@ -9,7 +9,7 @@ Authorization: Bearer {{auth_token}}
 
 
 ### GET /api/users
-GET {{appAddress}}/api/users?key=a
+GET {{appAddress}}/api/users?loginContaining=a
 Authorization: Bearer {{auth_token}}
 
 

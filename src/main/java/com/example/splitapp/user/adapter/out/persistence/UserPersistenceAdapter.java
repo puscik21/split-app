@@ -26,11 +26,11 @@ public class UserPersistenceAdapter implements UserRepositoryPort {
     }
 
     @Override
-    public List<User> findAll(String loginFilter, String sortBy, String sortOrder) {
+    public List<User> findAll(String loginContaining, String sortBy, String sortOrder) {
         Sort sort = Sort.by(Sort.Direction.valueOf(sortOrder), sortBy);
         List<UserEntity> entities;
-        if (StringUtils.hasText(loginFilter)) {
-            entities = jpaRepository.findAllByLoginContainingIgnoreCase(loginFilter, sort);
+        if (StringUtils.hasText(loginContaining)) {
+            entities = jpaRepository.findAllByLoginContainingIgnoreCase(loginContaining, sort);
         } else {
             entities = jpaRepository.findAll(sort);
         }

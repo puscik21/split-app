@@ -1,33 +1,13 @@
 package com.example.splitapp.user.adapter.in.web.mapper;
 
 import com.example.splitapp.user.adapter.in.web.dto.UserDTO;
-import com.example.splitapp.splitgroup.core.domain.model.SplitGroup;
 import com.example.splitapp.user.core.domain.model.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 @Mapper
 public interface UserDTOMapper {
 
-    // TODO: simple method, remove after fixing group Ids in findAll()
-    @Mapping(target = "splitGroupIds", ignore = true)
-    UserDTO toDto(User user);
-
     @Mapping(source = "user.login", target = "login")
-    @Mapping(source = "splitGroups", target = "splitGroupIds")
-    UserDTO toDto(User user, List<SplitGroup> splitGroups);
-
-    default Set<Long> mapGroupsToIds(List<SplitGroup> splitGroups) {
-        if (splitGroups == null || splitGroups.isEmpty()) {
-            return Collections.emptySet();
-        }
-        return splitGroups.stream()
-                .map(SplitGroup::getId)
-                .collect(Collectors.toSet());
-    }
+    UserDTO toDto(User user);
 }

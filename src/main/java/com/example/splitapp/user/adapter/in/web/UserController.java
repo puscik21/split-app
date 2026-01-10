@@ -47,13 +47,13 @@ public class UserController {
     @ApiResponse(responseCode = "200", description = "Successfully retrieved the list of users")
     @GetMapping
     public List<UserDTO> findUsers(
-            @Parameter(description = "Search key to filter users by login (case-insensitive)", example = "john") @RequestParam(required = false) String key,
+            @Parameter(description = "Search key to filter users by login (case-insensitive)", example = "john") @RequestParam(required = false) String loginContaining,
             @Parameter(description = "Field to sort by. Allowed values: 'login'", example = "login") @RequestParam(defaultValue = "login") String sortBy,
             @Parameter(description = "Sort direction (ASC or DESC)", example = "ASC") @RequestParam(defaultValue = "ASC") String sortOrder) {
         if (!ALLOWED_SORT_BY_FIELDS.contains(sortBy)) {
             throw new IllegalArgumentException("Invalid sortBy " + sortBy);
         }
-        return userService.findAll(key, sortBy, sortOrder).stream()
+        return userService.findAll(loginContaining, sortBy, sortOrder).stream()
                 .map(dtoMapper::toDto)
                 .toList();
     }
@@ -67,8 +67,7 @@ public class UserController {
     public UserDTO getUser(
             @Parameter(description = "Login of the user to retrieve", required = true, example = "jane.doe") @PathVariable String login) {
         User user = userService.getByLogin(login);
-        List<SplitGroup> userGroups = splitGroupService.findByUserLogin(login);
-        return dtoMapper.toDto(user, userGroups);
+        return dtoMapper.toDto(user);
     }
 
     @Operation(summary = "Register a new user")

@@ -9,7 +9,7 @@ public interface UserServicePort {
 
     User getByLogin(String login);
 
-    List<User> findAll(String loginFilter, String sortBy, String sortOrder);
+    List<User> findAll(String loginContaining, String sortBy, String sortOrder);
 
     User register(RegisterUserCommand registerCommand);
 

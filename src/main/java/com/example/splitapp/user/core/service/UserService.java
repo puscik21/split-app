@@ -26,8 +26,8 @@ public class UserService implements UserServicePort {
     }
 
     @Transactional(readOnly = true)
-    public List<User> findAll(String loginFilter, String sortBy, String sortOrder) {
-        return userRepository.findAll(loginFilter, sortBy, sortOrder);
+    public List<User> findAll(String loginContaining, String sortBy, String sortOrder) {
+        return userRepository.findAll(loginContaining, sortBy, sortOrder);
     }
 
     @Transactional

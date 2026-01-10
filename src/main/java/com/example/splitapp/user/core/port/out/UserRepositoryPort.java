@@ -10,7 +10,7 @@ public interface UserRepositoryPort {
 
     Optional<User> findByLogin(String login);
 
-    List<User> findAll(String loginFilter, String sortBy, String sortOrder);
+    List<User> findAll(String loginContaining, String sortBy, String sortOrder);
 
     User save(User user);
 
