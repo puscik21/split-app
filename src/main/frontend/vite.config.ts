@@ -1,11 +1,11 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import {defineConfig} from "vite"
+import react from "@vitejs/plugin-react"
 
 export default defineConfig({
   plugins: [react()],
   build: {
     // Build files will go to static resources of Spring app
-    outDir: '../resources/static',
+    outDir: "../resources/static",
     // Clean directory before every build
     emptyOutDir: true,
   },

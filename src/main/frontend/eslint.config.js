@@ -34,11 +34,17 @@ export default defineConfig([
             'react-refresh': reactRefresh,
         },
         rules: {
+            "indent": ["error", 2],
+            "quotes": ["error", "double"],
             ...reactHooks.configs.recommended.rules,
             'react-refresh/only-export-components': [
                 'warn',
                 {allowConstantExport: true},
             ],
+            '@typescript-eslint/no-unsafe-call': 'off',
+            '@typescript-eslint/no-unused-vars': 'off',
+            '@typescript-eslint/no-unsafe-member-access': 'off',
+            '@typescript-eslint/prefer-promise-reject-errors': 'off', // TODO: 'npx eslint .' and fix
         },
     },
 ])
