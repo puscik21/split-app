@@ -7,6 +7,11 @@ import {fetchUsersRequest} from "./api/userApi.ts";
 function App() {
   const [count, setCount] = useState(0)
 
+  const handleClick = () => {
+    setCount((count: number) => count + 1)
+    console.log(fetchUsersRequest())
+  }
+
   return (
     <>
       <div>
@@ -19,7 +24,7 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
+        <button onClick={handleClick}>
           count is {count}
         </button>
         <p>
