@@ -1,14 +1,13 @@
 import {CssBaseline, ThemeProvider} from '@mui/material';
-import {darkTheme} from "./theme/theme.ts";
+import {darkTheme, lightTheme} from "./theme/theme.ts";
 import GroupList from "./features/split-groups/SplitGroupList.tsx";
+import {useState} from "react";
 
 function App() {
-  // return (
-  //   <GroupList/>
-  // );
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   return (
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
       <CssBaseline/>
       {/*<GameContextProvider>*/}
       {/*  <GameContent/>*/}
