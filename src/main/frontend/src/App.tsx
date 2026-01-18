@@ -3,19 +3,19 @@ import {darkTheme} from "./theme/theme.ts";
 import GroupList from "./features/split-groups/SplitGroupList.tsx";
 
 function App() {
-  return (
-    <GroupList/>
-  );
-
   // return (
-  //   <ThemeProvider theme={darkTheme}>
-  //     <CssBaseline/>
-  //     {/*<GameContextProvider>*/}
-  //     {/*  <GameContent/>*/}
-  //     {/*</GameContextProvider>*/}
-  //     <GroupList/>
-  //   </ThemeProvider>
+  //   <GroupList/>
   // );
+
+  return (
+    <ThemeProvider theme={darkTheme}>
+      <CssBaseline/>
+      {/*<GameContextProvider>*/}
+      {/*  <GameContent/>*/}
+      {/*</GameContextProvider>*/}
+      <GroupList/>
+    </ThemeProvider>
+  );
 }
 
 export default App;

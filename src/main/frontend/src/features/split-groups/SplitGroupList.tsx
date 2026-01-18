@@ -72,25 +72,40 @@ const GroupList = () => {
 
 export default GroupList;
 
-// TODO: rewrite
-const GroupCard = styled(Card)(({ theme }) => ({
-  height: '100%',
-  transition: 'transform 0.2s ease-in-out, box-shadow 0.2s',
-  cursor: 'pointer',
-  '&:hover': {
-    transform: 'translateY(-4px)',
-    boxShadow: theme.shadows[4],
-  },
-  borderRadius: '12px',
-  border: '1px solid rgba(0, 0, 0, 0.08)',
-}));
+// const GroupCard = styled(Card)(({ theme }) => ({
+//   '&:hover': {
+//     transform: 'translateY(-4px)',
+//     boxShadow: `0 8px 24px ${theme.palette.mode === 'dark' ? 'rgba(0,0,0,0.5)' : 'rgba(0,0,0,0.1)'}`,
+//   },
+// }));
+
+const GroupCard = styled(Card)`
+    height: 100%;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s;
+    cursor: pointer;
+    border-radius: ${({ theme }) => theme.shape.borderRadius}px;
+    background-color: ${({ theme }) => theme.palette.background.paper};
+    border: 1px solid ${({ theme }) => theme.palette.divider};
+
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: ${({ theme }) => theme.shadows[8]};
+    }
+`;
+
+// const HeaderText = styled(Typography)`
+//     font-weight: 600;
+//     color: #1a2027;
+// `;
 
 const HeaderText = styled(Typography)`
     font-weight: 600;
-    color: #1a2027;
+    color: ${({ theme }) => theme.palette.text.primary};
+    margin-bottom: ${({ theme }) => theme.spacing(4)};
 `;
 
 const UserCountChip = styled(Chip)`
-    background-color: #f0f4f8;
+    background-color: ${({ theme }) => theme.palette.action.hover};
     font-weight: 500;
 `;
+
