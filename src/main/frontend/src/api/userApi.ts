@@ -1,11 +1,6 @@
 // import {notifyError} from "../info/notifier";
 import api from "./apiInstance";
-
-// TODO: move to separate file
-// Based on: com/example/splitapp/user/adapter/in/web/dto/UserDTO.java
-export interface User {
-  login: string
-}
+import type {User} from "./types.ts";
 
 export const fetchUsersRequest = async (): Promise<User[] | undefined> => {
   try {
