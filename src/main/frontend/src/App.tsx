@@ -1,16 +1,21 @@
 import {CssBaseline, ThemeProvider} from '@mui/material';
 import {darkTheme} from "./theme/theme.ts";
+import GroupList from "./features/split-groups/SplitGroupList.tsx";
 
 function App() {
   return (
-    <ThemeProvider theme={darkTheme}>
-      <CssBaseline/>
-      {/*<GameContextProvider>*/}
-      {/*  <GameContent/>*/}
-      {/*</GameContextProvider>*/}
-      <h1>Hello</h1>
-    </ThemeProvider>
+    <GroupList/>
   );
+
+  // return (
+  //   <ThemeProvider theme={darkTheme}>
+  //     <CssBaseline/>
+  //     {/*<GameContextProvider>*/}
+  //     {/*  <GameContent/>*/}
+  //     {/*</GameContextProvider>*/}
+  //     <GroupList/>
+  //   </ThemeProvider>
+  // );
 }
 
 export default App;
