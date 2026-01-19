@@ -23,9 +23,7 @@ export const darkTheme = createTheme({
     },
     action: {
       hover: 'rgba(255, 255, 255, 0.08)',
-    },
-    // TODO: improve, or maybe use default?
-    customShadow: 'rgba(0, 0, 0, 0.7)'
+    }
   },
   shape: {
     borderRadius: 16,
@@ -75,8 +73,7 @@ export const lightTheme = createTheme({
     },
     action: {
       hover: 'rgba(0, 0, 0, 0.04)',
-    },
-    customShadow: 'rgba(0, 0, 0, 0.7)'
+    }
   },
   shape: {
     borderRadius: 16,
