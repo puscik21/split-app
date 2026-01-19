@@ -1,7 +1,7 @@
 import {CssBaseline, ThemeProvider} from '@mui/material';
 import {darkTheme, lightTheme} from "./theme/theme.ts";
-import GroupList from "./features/split-groups/SplitGroupList.tsx";
 import {useState} from "react";
+import SplitGroupList from "./features/split-groups/components/SplitGroupList.tsx";
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -12,7 +12,7 @@ function App() {
       {/*<GameContextProvider>*/}
       {/*  <GameContent/>*/}
       {/*</GameContextProvider>*/}
-      <GroupList/>
+      <SplitGroupList/>
     </ThemeProvider>
   );
 }

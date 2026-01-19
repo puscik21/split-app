@@ -1,8 +1,8 @@
 import {Box, Card, CardContent, Chip, Grid, Stack, Typography} from "@mui/material";
 import {styled} from "@mui/material/styles";
 import PeopleIcon from "@mui/icons-material/People";
-import type {SplitGroupDTO} from "../../types/splitGroup.ts";
-import {formatDate} from "../../utils/dateFormatter.ts";
+import {formatDate} from "../../../utils/dateFormatter.ts";
+import type {SplitGroupDTO} from "../../../types/splitGroup.ts";
 
 // Mock danych (później zastąpisz to przez axios.get / fetch)
 const mockGroups: SplitGroupDTO[] = [
@@ -22,9 +22,9 @@ const mockGroups: SplitGroupDTO[] = [
   }
 ];
 
-// TODO move every style to styled components
 // TODO probably move to something like SplitGroupCard
-const GroupList = () => {
+// TODO: Move HeaderText to SplitGroupPage
+const SplitGroupList = () => {
   return (
     <Box sx={{p: 4}}>
       <HeaderText variant="h4">Twoje Grupy</HeaderText>
@@ -64,7 +64,7 @@ const GroupList = () => {
   );
 };
 
-export default GroupList;
+export default SplitGroupList;
 
 const HeaderText = styled(Typography)`
     font-weight: 600;
@@ -93,7 +93,7 @@ const UserCountChip = styled(Chip)`
 `;
 
 const CreatedAt = styled(Box)`
-    padding-top:;
+    padding-top: ${({theme}) => theme.spacing(2)};
     border-top: 1px solid;
     border-color: ${({theme}) => theme.palette.divider};
 `;
