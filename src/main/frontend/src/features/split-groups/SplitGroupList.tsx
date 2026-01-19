@@ -49,11 +49,11 @@ const GroupList = () => {
                     {group.description}
                   </Typography>
 
-                  <Box sx={{pt:2, borderTop: "1px solid", borderColor: "divider"}}>
+                  <CreatedAt>
                     <Typography variant="caption" color="text.disabled">
                       Utworzono: {formatDate(group.creationTimestamp)}
                     </Typography>
-                  </Box>
+                  </CreatedAt>
                 </Stack>
               </CardContent>
             </GroupCard>
@@ -65,6 +65,12 @@ const GroupList = () => {
 };
 
 export default GroupList;
+
+const HeaderText = styled(Typography)`
+    font-weight: 600;
+    color: ${({theme}) => theme.palette.text.primary};
+    margin-bottom: ${({theme}) => theme.spacing(4)};
+`;
 
 const GroupCard = styled(Card)`
     height: 100%;
@@ -80,14 +86,14 @@ const GroupCard = styled(Card)`
     }
 `;
 
-const HeaderText = styled(Typography)`
-    font-weight: 600;
-    color: ${({theme}) => theme.palette.text.primary};
-    margin-bottom: ${({theme}) => theme.spacing(4)};
-`;
-
 const UserCountChip = styled(Chip)`
     background-color: ${({theme}) => theme.palette.divider};
     color: ${({theme}) => theme.palette.text.secondary};
     font-weight: 500;
+`;
+
+const CreatedAt = styled(Box)`
+    padding-top:;
+    border-top: 1px solid;
+    border-color: ${({theme}) => theme.palette.divider};
 `;
