@@ -12,7 +12,6 @@ const GroupsPage = () => {
           subtitle="Zarządzaj wspólnymi wydatkami ze znajomymi"
           action={<AddButton text="Nowa grupa"/>}
         />
-
         <SplitGroupList/>
       </Box>
     </Container>

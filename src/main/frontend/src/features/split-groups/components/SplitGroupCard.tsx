@@ -10,10 +10,10 @@ interface SplitGroupCardProps {
 
 export const SplitGroupCard = ({group}: SplitGroupCardProps) => {
   return (
-    <StyledCard elevation={0}>
+    <StyledCard>
       <CardContent sx={{p: 3}}>
         <Stack spacing={2}>
-          <Box display="flex" justifyContent="space-between" alignItems="center">
+          <CardHeader>
             <Typography variant="h6" sx={{fontWeight: 700}}>
               {group.title}
             </Typography>
@@ -21,11 +21,11 @@ export const SplitGroupCard = ({group}: SplitGroupCardProps) => {
               icon={<PeopleIcon/>}
               label={group.userLogins.length}
             />
-          </Box>
+          </CardHeader>
 
-          <Typography variant="body2" color="text.secondary" sx={{minHeight: "40px"}}>
+          <Description variant="body2">
             {group.description}
-          </Typography>
+          </Description>
 
           <CreatedAt>
             <Typography variant="caption" color="text.disabled">
@@ -52,11 +52,22 @@ const StyledCard = styled(Card)`
     }
 `;
 
+const CardHeader = styled(Box)`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+`
+
 const UserCountChip = styled(Chip)`
     background-color: ${({theme}) => theme.palette.divider};
     color: ${({theme}) => theme.palette.text.secondary};
     font-weight: 500;
 `;
+
+const Description = styled(Typography)`
+    color: ${({theme}) => theme.palette.text.secondary};
+    min-height: 40px;
+`
 
 const CreatedAt = styled(Box)`
     padding-top: ${({theme}) => theme.spacing(2)};
