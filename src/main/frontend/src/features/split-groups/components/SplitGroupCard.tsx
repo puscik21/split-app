@@ -2,10 +2,10 @@ import {Box, Card, CardContent, Chip, Stack, Typography} from "@mui/material";
 import {styled} from "@mui/material/styles";
 import PeopleIcon from "@mui/icons-material/People";
 import {formatDate} from "../../../utils/dateFormatter.ts";
-import type {SplitGroupDTO} from "../../../types/splitGroup.ts";
+import type {SplitGroup} from "../../../types/splitGroup.ts";
 
 interface SplitGroupCardProps {
-  group: SplitGroupDTO;
+  group: SplitGroup;
 }
 
 export const SplitGroupCard = ({group}: SplitGroupCardProps) => {

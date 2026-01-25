@@ -1,9 +1,9 @@
 import {Box, Grid} from "@mui/material";
-import type {SplitGroupDTO} from "../../../types/splitGroup.ts";
+import type {SplitGroup} from "../../../types/splitGroup.ts";
 import {SplitGroupCard} from "./SplitGroupCard.tsx";
 
 // TODO: Get real data via API
-const mockGroups: SplitGroupDTO[] = [
+const mockGroups: SplitGroup[] = [
   {
     id: 101,
     title: "Wyjazd do Zakopanego",

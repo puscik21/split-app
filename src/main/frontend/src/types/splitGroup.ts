@@ -1,6 +1,5 @@
-// Based on: com/example/splitapp/splitgroup/adapter/in/web/dto/SplitGroupDTO.java
-// TODO: rename to SplitGroup
-export interface SplitGroupDTO {
+// Based on: com/example/splitapp/splitgroup/adapter/in/web/dto/SplitGroup.java
+export interface SplitGroup {
   id: number;
   title: string;
   description: string;
