@@ -1,7 +1,7 @@
-import {Box, Button, Container} from "@mui/material";
+import {Box, Container} from "@mui/material";
 import SplitGroupList from "../features/split-groups/components/SplitGroupList.tsx";
 import PageHeader from "../components/common/PageHeader.tsx";
-import AddIcon from "@mui/icons-material/Add";
+import AddButton from "../components/common/AddButton.tsx";
 
 const GroupsPage = () => {
   return (
@@ -10,16 +10,7 @@ const GroupsPage = () => {
         <PageHeader
           title="Twoje Grupy"
           subtitle="Zarządzaj wspólnymi wydatkami ze znajomymi"
-          action={
-            <Button
-              variant="contained"
-              size="large"
-              startIcon={<AddIcon/>}
-              sx={{borderRadius: 2, textTransform: "none", fontWeight: 600}}
-            >
-              Nowa grupa
-            </Button>
-          }
+          action={<AddButton text="Nowa grupa"/>}
         />
 
         <SplitGroupList/>
